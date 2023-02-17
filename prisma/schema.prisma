@@ -7,3 +7,9 @@ datasource db {
   url         = env("DATABASE_URL")
 }
 
+model Task {
+  id          Int       @id @default(autoincrement())
+  content     String
+  createdAt   DateTime  @default(now())
+  completed   Boolean   @default(false)
+}
