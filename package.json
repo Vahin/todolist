@@ -2,11 +2,12 @@
   "name": "todolist",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "nodemon:inspect": "nodemon --inspect dist/index.js",
     "compile:watch": "tsc --watch",
     "watch": "concurrently \"npm run compile:watch\" \"npm run nodemon:inspect\"",
+    "dev": "concurrently \"npm run watch\" \"npm run start --prefix client\"",
     "test": "jest"
   },
   "author": "Danil Vakhrushev <danil.e.vakhrushev@gmail.com>",
