@@ -1,29 +1,24 @@
+import { DatabaseMock } from "./../utils/databaseMock";
 import { HTTP_STATUS } from "./../utils/httpStatus";
 import { app } from "../app";
 import request from "supertest";
 import { prisma } from "../controllers/dbInit";
-import { Task } from "@prisma/client";
 
-let database: Task[] = [];
+let database = new DatabaseMock();
 
 describe("Task Router:", () => {
   beforeAll(async () => {
-    database = await prisma.task.findMany();
+    database = await database.init(prisma.task);
+
+    await database.clear();
   });
 
   beforeEach(async () => {
-    await prisma.task.deleteMany({});
+    await database.clear();
   });
 
   afterAll(async () => {
-    await prisma.task.deleteMany({});
-    for (let i = 0; i < database.length; i++) {
-      await prisma.task.create({
-        data: {
-          ...database[i],
-        },
-      });
-    }
+    await database.restore();
   });
 
   describe("Create:", () => {
