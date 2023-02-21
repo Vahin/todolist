@@ -75,7 +75,7 @@ export const getTaskRouter = () => {
 
       const task: TaskViewModel = await db.createNewTask({ content });
 
-      res.json(task);
+      res.status(HTTP_STATUS.CREATED_201).json(task);
     }
   );
 
@@ -133,7 +133,7 @@ export const getTaskRouter = () => {
         });
       }
 
-      const task = db.deleteTask({ id });
+      const task = await db.deleteTask({ id });
 
       if (!task) {
         return res.status(HTTP_STATUS.NOT_FOUND_404).json({
