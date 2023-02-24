@@ -1,7 +1,7 @@
+import request from "supertest";
+import { app, taskRoute } from "../app";
 import { DatabaseMock } from "./../utils/databaseMock";
 import { HTTP_STATUS } from "./../utils/httpStatus";
-import { app } from "../app";
-import request from "supertest";
 import { prisma } from "../controllers/dbInit";
 
 let database = new DatabaseMock();
@@ -23,7 +23,7 @@ describe("Task Router:", () => {
 
   describe("Create:", () => {
     it("Shouldn't create a new task with incorrect data and returns message", async () => {
-      const res = await request(app).post("/task").send({});
+      const res = await request(app).post(taskRoute).send({});
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST_400);
       expect(res.body).toEqual({
@@ -37,7 +37,7 @@ describe("Task Router:", () => {
 
     it("Should create a new task and returns it", async () => {
       const content = "New task created";
-      const res = await request(app).post("/task").send({ content });
+      const res = await request(app).post(taskRoute).send({ content });
 
       expect(res.status).toBe(HTTP_STATUS.CREATED_201);
       expect(res.body).toEqual({
@@ -51,14 +51,14 @@ describe("Task Router:", () => {
 
   describe("Read:", () => {
     it("Should return empty array", async () => {
-      await request(app).get("/task").expect(200, []);
+      await request(app).get(taskRoute).expect(200, []);
     });
 
     it("Shouldn't get not existing task with incorrect id and return status code 400", async () => {
       const content = "New task created";
       const task = await prisma.task.create({ data: { content } });
 
-      const res = await request(app).get("/task/incorrect");
+      const res = await request(app).get(taskRoute + "/incorrect");
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST_400);
       expect(res.body).toEqual({ message: expect.any(String) });
@@ -72,7 +72,7 @@ describe("Task Router:", () => {
         },
       });
 
-      const res = await request(app).get("/task/-1");
+      const res = await request(app).get(taskRoute + "/-1");
 
       expect(res.status).toBe(HTTP_STATUS.NOT_FOUND_404);
       expect(res.body).toEqual({ message: expect.any(String) });
@@ -82,7 +82,7 @@ describe("Task Router:", () => {
       const content = "New task created";
       const task = await prisma.task.create({ data: { content } });
 
-      const res = await request(app).get(`/task/${task.id}`);
+      const res = await request(app).get(taskRoute + `/${task.id}`);
 
       expect(res.body).toEqual({
         id: task.id,
@@ -101,7 +101,7 @@ describe("Task Router:", () => {
       const task = await prisma.task.create({ data: { content } });
 
       const res = await request(app)
-        .put("/task/incorrect")
+        .put(taskRoute + "/incorrect")
         .send({ content: updatedContent, completed: true });
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST_400);
@@ -118,7 +118,7 @@ describe("Task Router:", () => {
       const task = await prisma.task.create({ data: { content } });
 
       const res = await request(app)
-        .put(`/task/${task.id}`)
+        .put(taskRoute + `/${task.id}`)
         .send({ content: "" });
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST_400);
@@ -136,7 +136,7 @@ describe("Task Router:", () => {
       const task = await prisma.task.create({ data: { content } });
 
       const res = await request(app)
-        .put(`/task/-1`)
+        .put(taskRoute + `/-1`)
         .send({ content: updatedContent, completed: true });
 
       expect(res.status).toBe(HTTP_STATUS.NOT_FOUND_404);
@@ -154,7 +154,7 @@ describe("Task Router:", () => {
       const task = await prisma.task.create({ data: { content } });
 
       const res = await request(app)
-        .put(`/task/${task.id}`)
+        .put(taskRoute + `/${task.id}`)
         .send({ content: updatedContent, completed: true });
 
       expect(res.status).toBe(HTTP_STATUS.OK_200);
@@ -172,7 +172,7 @@ describe("Task Router:", () => {
       const content = "Create a new task";
       const task = await prisma.task.create({ data: { content } });
 
-      const res = await request(app).delete("/task/string");
+      const res = await request(app).delete(taskRoute + "/string");
 
       expect(res.status).toBe(400);
       expect(res.body).toEqual({ message: expect.any(String) });
@@ -187,7 +187,7 @@ describe("Task Router:", () => {
       const content = "Create a new task";
       const task = await prisma.task.create({ data: { content } });
 
-      const res = await request(app).delete("/task/1");
+      const res = await request(app).delete(taskRoute + "/1");
 
       expect(res.status).toBe(HTTP_STATUS.NOT_FOUND_404);
       expect(res.body).toEqual({ message: expect.any(String) });
@@ -202,7 +202,7 @@ describe("Task Router:", () => {
       const content = "Create a new task";
       const task = await prisma.task.create({ data: { content } });
 
-      const res = await request(app).delete(`/task/${task.id}`);
+      const res = await request(app).delete(taskRoute + `/${task.id}`);
 
       expect(res.status).toBe(HTTP_STATUS.NO_CONTENT_204);
 
