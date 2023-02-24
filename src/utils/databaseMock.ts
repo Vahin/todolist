@@ -1,5 +1,7 @@
 import { Task, Prisma } from "@prisma/client";
 
+// TODO Изменить название и принцип работы на вызов из второй моковой БД
+
 type ModelType = Prisma.TaskDelegate<undefined> | undefined;
 type StoreType = Task[] | undefined;
 
