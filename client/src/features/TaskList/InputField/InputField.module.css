@@ -1,0 +1,38 @@
+.wrapper {
+  margin: 10px 20px 0;
+  padding: 0 20px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(40, 0, 40);
+  box-shadow: 0 5px 10px 2px rgba(40, 0, 40, 0.2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  border-radius: 10px;
+}
+
+.addButton {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgb(200, 250, 200);
+  border: 1px solid rgb(40, 0, 40);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+  color: rgb(40, 0, 40);
+  font-size: 16px;
+}
+
+.input:focus {
+  outline: none;
+}

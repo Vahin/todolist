@@ -1,5 +1,11 @@
+import { TaskList } from "./features/TaskList/TaskList";
+
 function App() {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <TaskList />
+    </div>
+  );
 }
 
 export default App;

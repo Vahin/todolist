@@ -1,3 +1,4 @@
+import { CreateTaskModel } from "./../Models/tasks/CreateTaskModel";
 import { prisma } from "./dbInit";
 
 type UpdateTaskType = {
@@ -48,10 +49,11 @@ export const taskController = () => {
     /**
      * Create a new task and returns object with type TaskViewModel or null
      */
-    createNewTask: async ({ content }: { content: string }) => {
+    createNewTask: async ({ content, createdAt }: CreateTaskModel) => {
       return await prisma.task.create({
         data: {
           content,
+          createdAt: new Date(createdAt),
         },
         select,
       });

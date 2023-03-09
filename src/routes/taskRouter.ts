@@ -66,6 +66,7 @@ export const getTaskRouter = () => {
       res: Response<TaskViewModelOrError>
     ) => {
       const content: string = req.body.content;
+      const createdAt: string = req.body.createdAt;
 
       if (!content) {
         return res.status(HTTP_STATUS.BAD_REQUEST_400).json({
@@ -73,7 +74,10 @@ export const getTaskRouter = () => {
         });
       }
 
-      const task: TaskViewModel = await db.createNewTask({ content });
+      const task: TaskViewModel = await db.createNewTask({
+        content,
+        createdAt,
+      });
 
       res.status(HTTP_STATUS.CREATED_201).json(task);
     }

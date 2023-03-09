@@ -37,7 +37,10 @@ describe("Task Router:", () => {
 
     it("Should create a new task and returns it", async () => {
       const content = "New task created";
-      const res = await request(app).post(taskRoute).send({ content });
+      const createdAt = new Date().toISOString();
+      const res = await request(app)
+        .post(taskRoute)
+        .send({ content, createdAt });
 
       expect(res.status).toBe(HTTP_STATUS.CREATED_201);
       expect(res.body).toEqual({
