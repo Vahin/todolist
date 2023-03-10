@@ -1,4 +1,4 @@
-.tasklist {
+.taskpage {
   margin: 3vh auto;
   min-height: 94vh;
   max-width: 800px;
@@ -9,11 +9,6 @@
 
 .header {
   color: rgb(40, 0, 40);
-  margin: 0;
-  padding: 0;
-}
-
-.list {
   margin: 0;
   padding: 0;
 }

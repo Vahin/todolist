@@ -1,6 +1,6 @@
 import st from "./Task.module.css";
-import { removeTask, toggleTaskStatus, TTask } from "../../../app/taskSlice";
-import { useAppDispatch } from "../../../app/hooks";
+import { removeTask, toggleTaskStatus, TTask } from "../../../../app/taskSlice";
+import { useAppDispatch } from "../../../../app/hooks";
 
 type PropsType = {
   task: TTask;

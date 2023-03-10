@@ -1,9 +1,9 @@
-import { TaskList } from "./features/TaskList/TaskList";
+import { TaskPage } from "./components/TaskPage/TaskPage";
 
 function App() {
   return (
     <div>
-      <TaskList />
+      <TaskPage />
     </div>
   );
 }
