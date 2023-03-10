@@ -1,4 +1,4 @@
-import { TaskPage } from "./components/TaskPage/TaskPage";
+import { TaskPage } from "../TaskPage/TaskPage";
 
 function App() {
   return (
