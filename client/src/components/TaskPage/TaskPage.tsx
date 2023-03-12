@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { createNewTask, fetchTasks } from "../../app/taskSlice";
+import { fetchTasks } from "../../app/taskSlice";
 import { Loader } from "../common/Loader/Loader";
-import { InputField } from "./TaskInput/InputField/InputField";
 import { TaskInput } from "./TaskInput/TaskInput";
 import { TaskList } from "./TaskList/TaskList";
 import cn from "./TaskPage.module.css";

@@ -1,24 +1,26 @@
 import st from "./Task.module.css";
-import { removeTask, toggleTaskStatus, TTask } from "../../../../app/taskSlice";
+import { removeTask, toggleTaskStatus } from "../../../../app/taskSlice";
 import { useAppDispatch } from "../../../../app/hooks";
 
 type PropsType = {
-  task: TTask;
+  id: number;
+  content: string;
+  completed: boolean;
 };
 
-export const Task: React.FC<PropsType> = ({ task }) => {
+export const Task: React.FC<PropsType> = ({ id, content, completed }) => {
   const dispatch = useAppDispatch();
   const checkboxChangeHandler = () => {
     dispatch(
       toggleTaskStatus({
-        id: task.id,
-        content: task.content,
-        completed: !task.completed,
+        id,
+        content,
+        completed: !completed,
       })
     );
   };
   const deleteClickHandler = () => {
-    dispatch(removeTask({ id: task.id }));
+    dispatch(removeTask({ id }));
   };
 
   return (
@@ -27,12 +29,12 @@ export const Task: React.FC<PropsType> = ({ task }) => {
         <input
           type='checkbox'
           className={st.checkbox}
-          checked={task.completed}
+          checked={completed}
           onChange={checkboxChangeHandler}
         />
         <span className={st.customCheckbox}></span>
       </label>
-      <span className={st.text}>{task.content}</span>
+      <span className={st.text}>{content}</span>
       <button className={st.deleteButton} onClick={deleteClickHandler}>
         Х
       </button>

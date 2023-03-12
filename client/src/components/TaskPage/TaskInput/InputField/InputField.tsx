@@ -1,12 +1,12 @@
 import s from "./InputField.module.css";
 
-type TProps = {
+type PropsType = {
   text: string;
   changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
   addTaskHandler: () => void;
 };
 
-export const InputField: React.FC<TProps> = ({
+export const InputField: React.FC<PropsType> = ({
   text,
   changeHandler,
   addTaskHandler,
